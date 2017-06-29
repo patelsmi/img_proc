@@ -1,7 +1,7 @@
 import pygame, sys
 from PIL import Image
 
-pygame.init()
+# pygame.init()
 
 def displayImage( screen, px, topleft):
      screen.blit(px, px.get_rect())
@@ -32,6 +32,7 @@ def mainLoop(screen, px):
      return ( topleft + bottomright )
 
 def img_calibrate(input_loc):
+     pygame.init()
      screen, px = setup(input_loc)
      left, upper, right, lower = mainLoop(screen, px)
      im = Image.open(input_loc)
@@ -53,6 +54,7 @@ def img_calibrate(input_loc):
      avg_r = avg_r/cnt
      avg_g = avg_g/cnt
      avg_b = avg_b/cnt
+
      #print "R=%s\nG=%s\nB=%s" % (str(avg_r), str(avg_g), str(avg_b))
      return (avg_r,avg_g,avg_b)
 
