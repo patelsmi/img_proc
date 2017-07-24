@@ -20,15 +20,22 @@ def get_img_row(pixels, row_len, row_idx):
         row_pix.append(pixels[col_idx, row_idx])
     return row_pix
 
+def check_pixel(r,g,b,ref_r,ref_g,ref_b,delta):
+    r_valid = abs(ref_r - r) < delta
+    g_valid = abs(ref_g - g) < delta
+    b_valid = abs(ref_b - b) < delta
+    if r_valid and g_valid and b_valid:
+        return True
+    else:
+        return False
+
 def get_row_variation(row_pixs, ref_r, ref_g, ref_b, delta):
     row_sum = 0
     row_count = 0
     for count,row_pix in enumerate(row_pixs):
         r,g,b = row_pix
-        r_valid = abs(ref_r - r) < delta
-        g_valid = abs(ref_g - g) < delta
-        b_valid = abs(ref_b - b) < delta
-        if r_valid and g_valid and b_valid:
+        pix_valid = check_pixel(r,g,b,ref_r,ref_g,ref_b,delta)
+        if pix_valid:
             row_sum += count
             row_count += 1
     if row_count:
