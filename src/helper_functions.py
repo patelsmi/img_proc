@@ -44,3 +44,32 @@ def get_row_variation(row_pixs, ref_r, ref_g, ref_b, delta):
         variation = 0
     return variation
 
+def image_direction_vector(img_handle, ref_r,ref_g,ref_b,strictness):
+    direction = []
+    img_pixels = get_img_pixels(img_handle)
+    img_dimensions = get_img_dimensions(img_handle)
+    img_ht = img_dimensions["height"]
+    img_wd = img_dimensions["width"]
+    row_indices = sorted(np.arange(img_ht), reverse=True)
+    for each_row in row_indices:
+        row_pixs = get_img_row(img_pixels,img_wd,each_row)
+        row_variation = get_row_variation(row_pixs,ref_r,ref_g,ref_b,strictness)
+        direction.append(row_variation)
+    return direction
+
+
+def add_vectors(vector1,vector2):
+    v1 = np.array(vector1)
+    v2 = np.array(vector2)
+    sum_vector = (v1 + v2)/2
+    return list(sum_vector)
+
+def shift_direction(vector):
+    vector.pop(0)
+    vector.append(0)
+    return vector
+
+def shift_and_add(vector1, vector2):
+    shifted_vector = shift_direction(vector1)
+    added_vector = add_vectors(shifted_vector, vector2)
+    return added_vector

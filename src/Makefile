@@ -1,4 +1,4 @@
-build:
+run:
 	python main.py
 
 clean:
