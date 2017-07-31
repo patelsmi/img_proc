@@ -1,5 +1,6 @@
 from PIL import Image
 import numpy as np
+import picamera as pic
 
 def get_img_handle(img_path):
     im = Image.open(img_path)
@@ -73,3 +74,6 @@ def shift_and_add(vector1, vector2):
     shifted_vector = shift_direction(vector1)
     added_vector = add_vectors(shifted_vector, vector2)
     return added_vector
+
+def get_picture(img_path):
+    pic.capture(img_path)
