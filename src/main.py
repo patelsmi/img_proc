@@ -3,6 +3,7 @@ import img_calibrate as cal
 import numpy as np
 import camera as picam
 import RPi.GPIO as GPIO
+import time
 
 # Setup GPIOs
 GPIO.setmode(GPIO.BCM)
@@ -35,3 +36,4 @@ while True:
             print "straight"
     else:
         print "Self Driving Mode Off"
+        time.sleep(3)
