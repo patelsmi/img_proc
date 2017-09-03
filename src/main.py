@@ -17,16 +17,17 @@ ref_g = 159
 ref_b = 208
 
 temp_image = '../images/latest.jpg'
-result = [0]*792
+result = [0]*1080
 
 # Real Time Processing
 while True:
     input_switch = GPIO.input(17)
-    if input_switch is True:
+    if input_switch is 0:
+	print "Self Driving Mode ON"
         # Capture Image
         image = picam.get_picture(temp_image)
-        image_handle = hf.get_img_handle(temp_image)
-        direction = hg.image_direction_vector(img_handle, ref_r, ref_g, ref_b,100)
+        img_handle = hf.get_img_handle(temp_image)
+        direction = hf.image_direction_vector(img_handle, ref_r, ref_g, ref_b,100)
         result = hf.shift_and_add(result,direction)
         if (result[0] < 0):
             print "left"
